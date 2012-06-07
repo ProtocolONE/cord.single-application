@@ -5,6 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Application", "Application\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ApplicationTest", "ApplicationTest\ApplicationTest.vcxproj", "{6AA87F83-0692-4CBD-8DE5-630C9CF082D8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{19264C19-6512-4F15-AF17-4E73F22E8134} = {19264C19-6512-4F15-AF17-4E73F22E8134}
+		{74A37A20-454F-42FB-B467-4C203270B4BC} = {74A37A20-454F-42FB-B467-4C203270B4BC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SingleApplicationFixture", "SingleApplicationFixture\SingleApplicationFixture.vcxproj", "{19264C19-6512-4F15-AF17-4E73F22E8134}"
+	ProjectSection(ProjectDependencies) = postProject
 		{74A37A20-454F-42FB-B467-4C203270B4BC} = {74A37A20-454F-42FB-B467-4C203270B4BC}
 	EndProjectSection
 EndProject
@@ -22,6 +28,10 @@ Global
 		{6AA87F83-0692-4CBD-8DE5-630C9CF082D8}.Debug|Win32.Build.0 = Debug|Win32
 		{6AA87F83-0692-4CBD-8DE5-630C9CF082D8}.Release|Win32.ActiveCfg = Release|Win32
 		{6AA87F83-0692-4CBD-8DE5-630C9CF082D8}.Release|Win32.Build.0 = Release|Win32
+		{19264C19-6512-4F15-AF17-4E73F22E8134}.Debug|Win32.ActiveCfg = Debug|Win32
+		{19264C19-6512-4F15-AF17-4E73F22E8134}.Debug|Win32.Build.0 = Debug|Win32
+		{19264C19-6512-4F15-AF17-4E73F22E8134}.Release|Win32.ActiveCfg = Release|Win32
+		{19264C19-6512-4F15-AF17-4E73F22E8134}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,8 +9,3 @@ int main(int argc, char *argv[])
     int r = RUN_ALL_TESTS();
     return r;
 }
-
-
-TEST(sample, sample)
-{
-}
