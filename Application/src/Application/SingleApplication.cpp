@@ -11,6 +11,7 @@
 #include <Application/SingleApplication.h>
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
+#define SIGNAL_CONNECT_CHECK(X) { bool result = X; Q_ASSERT_X(result, __FUNCTION__ , #X); }
 
 namespace GGS {
   namespace Application {
@@ -25,6 +26,9 @@ namespace GGS {
       fullName.toWCharArray(name);
       this->_mutex = ::CreateMutexW(0, 0, name);
       this->_isAlreadyRunning = ::GetLastError() != ERROR_SUCCESS;
+      SIGNAL_CONNECT_CHECK(QObject::connect(&this->_argumentParser, SIGNAL(commandRecieved(QString, QStringList)), 
+        this, SIGNAL(commandRecieved(QString, QStringList))));
+      this->_argumentParser.parse(this->arguments());
     }
 
     SingleApplication::~SingleApplication()
@@ -41,7 +45,7 @@ namespace GGS {
     void SingleApplication::startListen()
     {
       this->_server = new QTcpServer(this);
-      QObject::connect(this->_server, SIGNAL(newConnection()), this, SLOT(clientConnected()));
+      SIGNAL_CONNECT_CHECK(QObject::connect(this->_server, SIGNAL(newConnection()), this, SLOT(clientConnected())));
       this->_server->listen(QHostAddress::LocalHost, 0);
       quint16 port = this->_server->serverPort();
       qDebug() << "Listen started: " << port;
@@ -52,27 +56,35 @@ namespace GGS {
     void SingleApplication::clientConnected()
     {
       QTcpSocket *client = this->_server->nextPendingConnection();
-      QObject::connect(client, SIGNAL(readyRead()), this, SLOT(clientReadyRead()));
-      QObject::connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+      SIGNAL_CONNECT_CHECK(QObject::connect(client, SIGNAL(readyRead()), this, SLOT(clientReadyRead())));
+      SIGNAL_CONNECT_CHECK(QObject::connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnected())));
     }
 
     void SingleApplication::clientReadyRead()
     {
       QTcpSocket *client = qobject_cast<QTcpSocket*>(QObject::sender());
+      if (!client)
+        return;
+      
       QByteArray buffer = client->readAll();
       QString message = QString::fromUtf8(buffer.data(), buffer.size());
       emit this->messageRecived(message);
+
+      QStringList args = message.split('|', QString::SkipEmptyParts);
+      this->_argumentParser.parse(args);
     }
 
     void SingleApplication::clientDisconnected()
     {
       QTcpSocket *client = qobject_cast<QTcpSocket*>(QObject::sender());
+      if (!client)
+        return;
+
       client->deleteLater();
     }
 
     void SingleApplication::sendMessage(const QString& message)
     {
-      //QSettings settings("HKEY_CURRENT_USER\\Software\\GGS\\QGNA", QSettings::NativeFormat);
       QSettings settings(this->_ipcPortPath, QSettings::NativeFormat);
       bool ok;
       quint16 port = settings.value("sharedport", 0).toUInt(&ok);
@@ -105,5 +117,27 @@ namespace GGS {
       return this->_ipcPortPath;
     }
 
+    void SingleApplication::sendArguments()
+    {
+      QStringList args;
+      this->sendArguments(args);
+    }
+
+    void SingleApplication::sendArguments(const QStringList& additionalArguments)
+    {
+      QStringList args = this->arguments();
+      args.removeFirst();
+      Q_FOREACH(QString arg, additionalArguments) {
+        args << arg;
+      }
+
+      QString tmp = args.join("|");
+      this->sendMessage(tmp);
+    }
+
+    void SingleApplication::initializeFinished()
+    {
+      this->_argumentParser.initFinished();
+    }
   }
 }

@@ -23,6 +23,7 @@ public:
     p1.waitForReadyRead(5000);
     QString result1(p1.readAllStandardError());
     p1.close();
+    p1.waitForStarted(5000);
     return result1.trimmed();
   }
 
@@ -57,10 +58,11 @@ TEST_F(SingleApplicationTest, DoubleExecute)
   ASSERT_EQ("false", getStartResult());
   QProcess p1;
   p1.start(fixturePath);
-  p1.waitForStarted(1000);
+  p1.waitForStarted(5000);
   ASSERT_EQ("true", getStartResult());
   ASSERT_EQ("true", getStartResult());
   p1.close();
+  p1.waitForFinished(5000);
   ASSERT_EQ("false", getStartResult());
   ASSERT_EQ("false", getStartResult());
 }
@@ -72,20 +74,19 @@ TEST_F(SingleApplicationTest, MessageTest)
   QProcess server;
   server.start(fixturePath, args1);
   server.setReadChannel(QProcess::StandardError);
-  server.waitForStarted(1000);
-  server.waitForReadyRead(5000);
+  server.waitForStarted(5000);
+  server.waitForReadyRead(10000);
   server.readAllStandardError(); // clear all current output
 
   QProcess client;
   client.start(fixturePath, args1);
-  client.waitForStarted(1000);
-
-  server.waitForReadyRead(5000);
+  client.waitForStarted(5000);
+  server.waitForReadyRead(10000);
   
   QString result(server.readAllStandardError());
   
   server.close();
   client.close();
 
-  ASSERT_EQ("\"123|test|asd\"", result.trimmed());
+  ASSERT_EQ("\"123|test|asd|-activate\"", result.trimmed());
 }

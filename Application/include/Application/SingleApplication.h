@@ -12,6 +12,7 @@
 #define _GGS_APPLICATION_SINGLEAPPLICATION_H_
 
 #include <Application/Application_global.h>
+#include <Application/ArgumentParser.h>
 
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
@@ -28,13 +29,21 @@ namespace GGS {
       ~SingleApplication();
 
       bool isAlreadyRunning() const;
+
       void startListen();
+      void sendArguments();
+      void sendArguments(const QStringList& additionalArguments);
       void sendMessage(const QString& message);
+
       void setIpcPortPath(const QString& ipcPortPath);
       const QString& ipcPortPath();
 
+    public slots:
+      void initializeFinished();
+
     signals:
       void messageRecived(QString message);
+      void commandRecieved(QString name, QStringList arguments);
       void sendMessageFinished();
 
     private slots:
@@ -47,7 +56,7 @@ namespace GGS {
       bool _isAlreadyRunning;
       HANDLE _mutex;
       QTcpServer *_server;
-
+      ArgumentParser _argumentParser;
     };
   }
 }
