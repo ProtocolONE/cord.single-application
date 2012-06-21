@@ -18,6 +18,7 @@ public:
 
   void SetUp()
   {
+    parser.clear();
   }
 
   ArgumentParser parser;
@@ -71,7 +72,6 @@ TEST_F(ArgumentParserTest, cacheTest)
 
 TEST_F(ArgumentParserTest, afterInitTest)
 {
-  parser.initFinished();
   QStringList commandlist1;
   commandlist1 << "fake" 
     << "/test1" << "123" << "qwe" << "asd" 
@@ -95,6 +95,7 @@ TEST_F(ArgumentParserTest, afterInitTest)
   expected["test1"] = expectedArgs;
 
   parser.parse(commandlist1);
+  parser.initFinished();
 
   QEventLoop loop;
   QTimer::singleShot(1000, &loop, SLOT(quit()));
@@ -117,7 +118,6 @@ TEST_F(ArgumentParserTest, afterInitTest)
 
 TEST_F(ArgumentParserTest, uriArgsTest)
 {
-  parser.initFinished();
   QStringList commandlist1;
   commandlist1 << "/uri" << "gamenet://somecommand/args1/args2/";
 
@@ -128,6 +128,7 @@ TEST_F(ArgumentParserTest, uriArgsTest)
   expected["somecommand"] = expectedArgs;
 
   parser.parse(commandlist1);
+  parser.initFinished();
 
   QEventLoop loop;
   QTimer::singleShot(1000, &loop, SLOT(quit()));
@@ -148,7 +149,6 @@ TEST_F(ArgumentParserTest, uriArgsTest)
 
 TEST_F(ArgumentParserTest, uriArgsTest2)
 {
-  parser.initFinished();
   QStringList commandlist1;
   commandlist1 << "/uri:gamenet://somecommand/args1/args2/";
 
@@ -159,6 +159,7 @@ TEST_F(ArgumentParserTest, uriArgsTest2)
   expected["somecommand"] = expectedArgs;
 
   parser.parse(commandlist1);
+  parser.initFinished();
 
   QEventLoop loop;
   QTimer::singleShot(1000, &loop, SLOT(quit()));
@@ -175,4 +176,20 @@ TEST_F(ArgumentParserTest, uriArgsTest2)
       ASSERT_EQ(expectedAruments.at(j), recievedArgs.at(j));
     }
   }
+}
+
+TEST_F(ArgumentParserTest, noArgsTest)
+{
+  QStringList commandlist;
+  parser.parse(commandlist);
+  parser.initFinished();
+
+  QEventLoop loop;
+  QTimer::singleShot(1000, &loop, SLOT(quit()));
+  loop.exec();
+  
+  ASSERT_EQ(1, spy.count());
+
+  QString key = spy.at(0).at(0).toString();
+  ASSERT_EQ("empty", key);
 }

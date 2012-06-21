@@ -27,7 +27,7 @@ namespace GGS {
 
       void parse(QStringList arguments);
 
-
+      void clear();
     public slots:
       void initFinished();
 

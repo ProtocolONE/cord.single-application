@@ -84,6 +84,12 @@ namespace GGS {
       this->_commandCache.clear();
     }
 
+    void ArgumentParser::clear()
+    {
+       QMutexLocker locker(&this->_mutex);
+       this->_commandCache.clear();
+    }
+
     bool ArgumentParser::tryGetCommandName(const QString& argument, QString& commandName)
     {
       QString tmp = argument.trimmed();
@@ -124,6 +130,10 @@ namespace GGS {
       Q_FOREACH(QString key, commands.keys()) {
         emit this->commandRecieved(key, commands[key]);
       }
+
+      if (0 == commands.count()) {
+         emit this->commandRecieved("empty", QStringList());
+      }
     }
 
     void ArgumentParser::uriParse(const QStringList& commandArguments, QHash<QString, QStringList>& result)
@@ -156,6 +166,5 @@ namespace GGS {
         result[name] = commandArguments;
       }
     }
-
   }
 }
