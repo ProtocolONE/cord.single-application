@@ -50,7 +50,7 @@ namespace GGS {
       quint16 port = this->_server->serverPort();
       qDebug() << "Listen started: " << port;
       QSettings settings(this->_ipcPortPath, QSettings::NativeFormat);
-      settings.setValue("sharedport", port);
+      settings.setValue("SharedPort", port);
     }
 
     void SingleApplication::clientConnected()
@@ -87,7 +87,7 @@ namespace GGS {
     {
       QSettings settings(this->_ipcPortPath, QSettings::NativeFormat);
       bool ok;
-      quint16 port = settings.value("sharedport", 0).toUInt(&ok);
+      quint16 port = settings.value("SharedPort", 0).toUInt(&ok);
       if (!ok || port == 0) {
         qDebug() << "Server port not found";
         emit this->sendMessageFinished();
