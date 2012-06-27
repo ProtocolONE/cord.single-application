@@ -150,5 +150,13 @@ namespace GGS {
       return this->_argumentParser.getCommandArguments(name);
     }
 
+    void SingleApplication::allowSecondInstance()
+    {
+      if (this->_mutex != INVALID_HANDLE_VALUE) {
+        ::CloseHandle(this->_mutex);
+        this->_mutex = INVALID_HANDLE_VALUE;
+      }
+    }
+
   }
 }

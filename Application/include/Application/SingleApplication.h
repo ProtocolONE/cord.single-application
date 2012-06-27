@@ -43,6 +43,7 @@ namespace GGS {
 
     public slots:
       void initializeFinished();
+      void allowSecondInstance();
 
     signals:
       void messageRecived(QString message);
