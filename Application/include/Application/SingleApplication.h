@@ -38,6 +38,9 @@ namespace GGS {
       void setIpcPortPath(const QString& ipcPortPath);
       const QString& ipcPortPath();
 
+      bool containsCommand(const QString& name);
+      QStringList getCommandArguments(const QString& name);
+
     public slots:
       void initializeFinished();
 

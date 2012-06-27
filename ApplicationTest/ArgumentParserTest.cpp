@@ -51,6 +51,12 @@ TEST_F(ArgumentParserTest, cacheTest)
 
   parser.parse(commandlist1);
 
+  ASSERT_TRUE(parser.contains("test1"));
+  ASSERT_TRUE(parser.contains("asd3"));
+  QStringList testArgs = parser.getCommandArguments("asd3");
+  ASSERT_EQ(1, testArgs.count());
+  ASSERT_EQ("iiiiii4", testArgs.at(0));
+
   QEventLoop loop;
   QTimer::singleShot(1000, &loop, SLOT(quit()));
   QTimer::singleShot(0, &parser, SLOT(initFinished()));

@@ -139,5 +139,16 @@ namespace GGS {
     {
       this->_argumentParser.initFinished();
     }
+
+    bool SingleApplication::containsCommand(const QString& name)
+    {
+      return this->_argumentParser.contains(name);
+    }
+
+    QStringList SingleApplication::getCommandArguments(const QString& name)
+    {
+      return this->_argumentParser.getCommandArguments(name);
+    }
+
   }
 }

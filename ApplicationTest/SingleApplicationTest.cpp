@@ -52,7 +52,7 @@ public:
   QString fixturePath;
 };
 
-TEST_F(SingleApplicationTest, DoubleExecute)
+TEST_F(SingleApplicationTest, DISABLED_DoubleExecute)
 {
   ASSERT_EQ("false", getStartResult());
   ASSERT_EQ("false", getStartResult());
@@ -67,7 +67,7 @@ TEST_F(SingleApplicationTest, DoubleExecute)
   ASSERT_EQ("false", getStartResult());
 }
 
-TEST_F(SingleApplicationTest, MessageTest)
+TEST_F(SingleApplicationTest, DISABLED_MessageTest)
 {
   QStringList args1;
   args1 << "123" << "test" << "asd";

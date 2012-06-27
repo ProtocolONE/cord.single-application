@@ -22,7 +22,6 @@ namespace GGS {
     {
     }
 
-
     ArgumentParser::~ArgumentParser()
     {
     }
@@ -166,5 +165,16 @@ namespace GGS {
         result[name] = commandArguments;
       }
     }
+
+    bool ArgumentParser::contains(const QString& name)
+    {
+      return this->_commandCache.contains(name);
+    }
+
+    QStringList ArgumentParser::getCommandArguments(const QString& name)
+    {
+      return this->_commandCache[name];
+    }
+
   }
 }
