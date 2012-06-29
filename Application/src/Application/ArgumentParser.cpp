@@ -171,7 +171,7 @@ namespace GGS {
       return this->_commandCache.contains(name);
     }
 
-    QStringList ArgumentParser::getCommandArguments(const QString& name)
+    QStringList ArgumentParser::commandArguments(const QString& name)
     {
       return this->_commandCache[name];
     }

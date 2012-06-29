@@ -147,7 +147,7 @@ namespace GGS {
 
     QStringList SingleApplication::getCommandArguments(const QString& name)
     {
-      return this->_argumentParser.getCommandArguments(name);
+      return this->_argumentParser.commandArguments(name);
     }
 
     void SingleApplication::allowSecondInstance()

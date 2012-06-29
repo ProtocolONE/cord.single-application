@@ -29,7 +29,7 @@ namespace GGS {
       void clear();
 
       bool contains(const QString& name);
-      QStringList getCommandArguments(const QString& name);
+      QStringList commandArguments(const QString& name);
 
     public slots:
       void initFinished();
