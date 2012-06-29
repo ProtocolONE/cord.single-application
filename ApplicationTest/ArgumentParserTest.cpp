@@ -53,7 +53,7 @@ TEST_F(ArgumentParserTest, cacheTest)
 
   ASSERT_TRUE(parser.contains("test1"));
   ASSERT_TRUE(parser.contains("asd3"));
-  QStringList testArgs = parser.getCommandArguments("asd3");
+  QStringList testArgs = parser.commandArguments("asd3");
   ASSERT_EQ(1, testArgs.count());
   ASSERT_EQ("iiiiii4", testArgs.at(0));
 
