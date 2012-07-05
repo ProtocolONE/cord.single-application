@@ -54,6 +54,10 @@
   <ItemGroup>
     <ResourceCompile Include="Application.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="i18n\Application_en.ts" />
+    <None Include="i18n\Application_ru.ts" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{74A37A20-454F-42FB-B467-4C203270B4BC}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
@@ -111,13 +115,19 @@
       <Command>IF NOT "$(QGNACOMMONDIR)"=="" (
 xcopy /Y /I /R "$(TargetDir)*.dll" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\bin"
 xcopy /Y /I /R "$(TargetDir)*.lib" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\lib"
+xcopy /Y /I /R "$(TargetDir)*.pdb" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\pdb"
 xcopy /Y /I /R /E "$(ProjectDir)include\*.h" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\include"
 xcopy /Y /I /R /E "$(ProjectDir)include\*" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\include"
+xcopy /Y /I /R /E "$(ProjectDir)i18n\*" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\i18n"
 ) else (
 ECHO QGNACOMMONDIR not defined!
 EXIT /B 1
 )</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(QTDIR)\bin\lupdate.exe "$(ProjectDir)\." -ts "$(ProjectDir)\i18n\$(ProjectName)_ru.ts"
+$(QTDIR)\bin\lupdate.exe "$(ProjectDir)\." -ts "$(ProjectDir)\i18n\$(ProjectName)_en.ts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -136,13 +146,19 @@ EXIT /B 1
       <Command>IF NOT "$(QGNACOMMONDIR)"=="" (
 xcopy /Y /I /R "$(TargetDir)*.dll" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\bin"
 xcopy /Y /I /R "$(TargetDir)*.lib" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\lib"
+xcopy /Y /I /R "$(TargetDir)*.pdb" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\pdb"
 xcopy /Y /I /R /E "$(ProjectDir)include\*.h" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\include"
 xcopy /Y /I /R /E "$(ProjectDir)include\*" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\include"
+xcopy /Y /I /R /E "$(ProjectDir)i18n\*" "$(QGNACOMMONDIR)\GGS\$(SolutionName)\$(CommonArea)\i18n"
 ) else (
 ECHO QGNACOMMONDIR not defined!
 EXIT /B 1
 )</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>$(QTDIR)\bin\lupdate.exe "$(ProjectDir)\." -ts "$(ProjectDir)\i18n\$(ProjectName)_ru.ts"
+$(QTDIR)\bin\lupdate.exe "$(ProjectDir)\." -ts "$(ProjectDir)\i18n\$(ProjectName)_en.ts"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

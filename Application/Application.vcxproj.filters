@@ -33,6 +33,11 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application\Application_global.h">
@@ -75,5 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Application.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="i18n\Application_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="i18n\Application_ru.ts">
+      <Filter>Translation Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
