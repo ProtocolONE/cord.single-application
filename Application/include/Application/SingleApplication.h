@@ -41,6 +41,8 @@ namespace GGS {
       bool containsCommand(const QString& name);
       QStringList getCommandArguments(const QString& name);
 
+      virtual bool notify(QObject* receiver, QEvent* event);
+
     public slots:
       void initializeFinished();
       void allowSecondInstance();

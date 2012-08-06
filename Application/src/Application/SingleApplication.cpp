@@ -37,6 +37,16 @@ namespace GGS {
         ::CloseHandle(this->_mutex);
     }
 
+    bool SingleApplication::notify(QObject* receiver, QEvent* event)
+    {
+      try {
+        return QApplication::notify(receiver, event);
+      } catch(std::exception& e) {
+        qCritical() << "Exception thrown:" << e.what();
+      }
+      return false;
+    }
+
     bool SingleApplication::isAlreadyRunning() const
     {
       return this->_isAlreadyRunning;
