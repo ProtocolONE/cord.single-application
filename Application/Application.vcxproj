@@ -25,8 +25,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\Application\SingleApplication.cpp" />
+    <ClCompile Include="src\Application\WindowHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Application\WindowHelper.h" />
     <CustomBuild Include="include\Application\ArgumentParser.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ArgumentParser.h...</Message>

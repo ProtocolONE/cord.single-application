@@ -49,6 +49,9 @@
     <ClInclude Include="version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Application\WindowHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\SingleApplication.cpp">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_ArgumentParser.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\WindowHelper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
