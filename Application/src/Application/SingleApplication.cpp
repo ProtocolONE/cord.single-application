@@ -9,8 +9,10 @@
 ****************************************************************************/
 
 #include <Application/SingleApplication.h>
+
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
+
 #define SIGNAL_CONNECT_CHECK(X) { bool result = X; Q_ASSERT_X(result, __FUNCTION__ , #X); }
 
 namespace GGS {
@@ -168,5 +170,14 @@ namespace GGS {
       }
     }
 
+    bool SingleApplication::winEventFilter(MSG *msg, long *result)
+    {
+      if(WM_QUERYENDSESSION == msg->message) {
+        emit this->forceQuit();
+        return true;
+      }
+     
+      return false;
+    }
   }
 }

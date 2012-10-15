@@ -17,6 +17,7 @@
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
 #include <QtGui/QApplication>
+
 #include <Windows.h>
 
 namespace GGS {
@@ -42,6 +43,7 @@ namespace GGS {
       QStringList getCommandArguments(const QString& name);
 
       virtual bool notify(QObject* receiver, QEvent* event);
+      virtual bool winEventFilter(MSG *message, long *result);
 
     public slots:
       void initializeFinished();
@@ -51,6 +53,7 @@ namespace GGS {
       void messageRecived(QString message);
       void commandRecieved(QString name, QStringList arguments);
       void sendMessageFinished();
+      void forceQuit();
 
     private slots:
       void clientConnected();
