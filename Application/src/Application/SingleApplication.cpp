@@ -172,7 +172,16 @@ namespace GGS {
 
     bool SingleApplication::winEventFilter(MSG *msg, long *result)
     {
-      if(WM_QUERYENDSESSION == msg->message) {
+      if (WM_QUERYENDSESSION == msg->message) {
+        //emit this->forceQuit();
+        qDebug() << "WM_QUERYENDSESSION" << " lparam " << msg->lParam << "wparam " << msg->wParam;
+        *result = 1;
+        return true;
+      }
+
+      if (WM_ENDSESSION == msg->message) {
+        qDebug() << "WM_ENDSESSION" << " lparam " << msg->lParam << "wparam " << msg->wParam;
+        *result = 0;
         emit this->forceQuit();
         return true;
       }
