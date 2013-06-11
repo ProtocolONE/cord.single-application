@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QProcess>
 #include <QtCore/QStringList>

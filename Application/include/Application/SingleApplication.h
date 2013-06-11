@@ -16,7 +16,7 @@
 
 #include <QtNetwork/QTcpServer>
 #include <QtNetwork/QTcpSocket>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include <Windows.h>
 
