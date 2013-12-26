@@ -21,6 +21,7 @@ namespace GGS {
     SingleApplication::SingleApplication(int &argc, char *argv[], const QString& uniqueApplicationName)
       : QApplication(argc, argv, true)
       , _mutex(INVALID_HANDLE_VALUE)
+      , _taskBarCreatedMsgId(0)
     {
       QString fullName = QString("Global\\%1").arg(uniqueApplicationName);
       Q_ASSERT(fullName.size() < MAX_PATH);
@@ -170,6 +171,11 @@ namespace GGS {
       }
     }
 
+    void SingleApplication::onTaskBarButtonMsgRegistered(unsigned int msgId)
+    {
+      this->_taskBarCreatedMsgId = msgId;
+    }
+
     bool SingleApplication::winEventFilter(MSG *msg, long *result)
     {
       if (WM_QUERYENDSESSION == msg->message) {
@@ -185,7 +191,10 @@ namespace GGS {
         emit this->forceQuit();
         return true;
       }
-     
+      if (this->_taskBarCreatedMsgId && this->_taskBarCreatedMsgId == msg->message) {
+        emit this->taskBarButtonCreated();
+        return true;
+      }
       return false;
     }
   }

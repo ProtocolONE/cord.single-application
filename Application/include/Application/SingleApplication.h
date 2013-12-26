@@ -48,12 +48,14 @@ namespace GGS {
     public slots:
       void initializeFinished();
       void allowSecondInstance();
+      void onTaskBarButtonMsgRegistered(unsigned int msgId);
 
     signals:
       void messageRecived(QString message);
       void commandRecieved(QString name, QStringList arguments);
       void sendMessageFinished();
       void forceQuit();
+      void taskBarButtonCreated();
 
     private slots:
       void clientConnected();
@@ -66,6 +68,7 @@ namespace GGS {
       HANDLE _mutex;
       QTcpServer *_server;
       ArgumentParser _argumentParser;
+      unsigned int _taskBarCreatedMsgId;
     };
   }
 }
