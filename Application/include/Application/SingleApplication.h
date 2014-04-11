@@ -20,8 +20,12 @@
 
 #include <Windows.h>
 
+
 namespace GGS {
   namespace Application {
+
+    class SingleApplicationEventFilter;
+
     class APPLICATION_EXPORT SingleApplication : public QApplication
     {
       Q_OBJECT
@@ -43,12 +47,10 @@ namespace GGS {
       QStringList getCommandArguments(const QString& name);
 
       virtual bool notify(QObject* receiver, QEvent* event);
-      virtual bool winEventFilter(MSG *message, long *result);
 
     public slots:
       void initializeFinished();
       void allowSecondInstance();
-      void onTaskBarButtonMsgRegistered(unsigned int msgId);
 
     signals:
       void messageRecived(QString message);
@@ -68,7 +70,7 @@ namespace GGS {
       HANDLE _mutex;
       QTcpServer *_server;
       ArgumentParser _argumentParser;
-      unsigned int _taskBarCreatedMsgId;
+      SingleApplicationEventFilter *_eventFilter;
     };
   }
 }

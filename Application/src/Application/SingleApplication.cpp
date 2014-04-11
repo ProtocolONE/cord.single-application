@@ -9,6 +9,7 @@
 ****************************************************************************/
 
 #include <Application/SingleApplication.h>
+#include <Application/SingleApplicationEventFilter.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
@@ -17,11 +18,10 @@
 
 namespace GGS {
   namespace Application {
-
     SingleApplication::SingleApplication(int &argc, char *argv[], const QString& uniqueApplicationName)
       : QApplication(argc, argv, true)
       , _mutex(INVALID_HANDLE_VALUE)
-      , _taskBarCreatedMsgId(0)
+      , _eventFilter(new SingleApplicationEventFilter(this))
     {
       QString fullName = QString("Global\\%1").arg(uniqueApplicationName);
       Q_ASSERT(fullName.size() < MAX_PATH);
@@ -32,6 +32,9 @@ namespace GGS {
       SIGNAL_CONNECT_CHECK(QObject::connect(&this->_argumentParser, SIGNAL(commandRecieved(QString, QStringList)), 
         this, SIGNAL(commandRecieved(QString, QStringList))));
       this->_argumentParser.parse(this->arguments());
+
+      SIGNAL_CONNECT_CHECK(QObject::connect(this->_eventFilter, SIGNAL(forceQuit()), this, SIGNAL(forceQuit())));
+      this->installNativeEventFilter(this->_eventFilter);
     }
 
     SingleApplication::~SingleApplication()
@@ -78,7 +81,7 @@ namespace GGS {
       QTcpSocket *client = qobject_cast<QTcpSocket*>(QObject::sender());
       if (!client)
         return;
-      
+
       QByteArray buffer = client->readAll();
       QString message = QString::fromUtf8(buffer.data(), buffer.size());
       emit this->messageRecived(message);
@@ -169,33 +172,6 @@ namespace GGS {
         ::CloseHandle(this->_mutex);
         this->_mutex = INVALID_HANDLE_VALUE;
       }
-    }
-
-    void SingleApplication::onTaskBarButtonMsgRegistered(unsigned int msgId)
-    {
-      this->_taskBarCreatedMsgId = msgId;
-    }
-
-    bool SingleApplication::winEventFilter(MSG *msg, long *result)
-    {
-      if (WM_QUERYENDSESSION == msg->message) {
-        //emit this->forceQuit();
-        qDebug() << "WM_QUERYENDSESSION" << " lparam " << msg->lParam << "wparam " << msg->wParam;
-        *result = 1;
-        return true;
-      }
-
-      if (WM_ENDSESSION == msg->message) {
-        qDebug() << "WM_ENDSESSION" << " lparam " << msg->lParam << "wparam " << msg->wParam;
-        *result = 0;
-        emit this->forceQuit();
-        return true;
-      }
-      if (this->_taskBarCreatedMsgId && this->_taskBarCreatedMsgId == msg->message) {
-        emit this->taskBarButtonCreated();
-        return true;
-      }
-      return false;
     }
   }
 }

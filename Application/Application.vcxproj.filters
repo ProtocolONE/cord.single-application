@@ -75,12 +75,24 @@
     <ClCompile Include="src\Application\WindowHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\SingleApplicationEventFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SingleApplicationEventFilter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SingleApplicationEventFilter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\Application\SingleApplication.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="include\Application\ArgumentParser.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\Application\SingleApplicationEventFilter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
