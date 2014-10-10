@@ -1,7 +1,7 @@
 /****************************************************************************
 ** This file is a part of Syncopate Limited GameNet Application or it parts.
 **
-** Copyright (�) 2011 - 2012, Syncopate Limited and/or affiliates. 
+** Copyright (©) 2011 - 2012, Syncopate Limited and/or affiliates. 
 ** All rights reserved.
 **
 ** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
@@ -37,8 +37,7 @@ namespace GGS {
       QStringList commandArguments;
       bool commandStarted = false;
 
-      Q_FOREACH(QString arg, arguments)
-      {
+      Q_FOREACH(QString arg, arguments) {
         if (commandStarted) {
           if (!this->isCommand(arg)) {
             commandArguments.append(arg);
@@ -49,17 +48,15 @@ namespace GGS {
           commandStarted=false;
         }
 
-        if (!this->tryGetCommandName(arg, name)) {
+        if (!this->tryGetCommandName(arg, name))
           continue;
-        }
 
         commandArguments.clear();
         commandStarted = true;
       }
 
-      if (commandStarted) {
+      if (commandStarted)
         this->preparseCommandAndPutToResult(name, commandArguments, result);
-      }
 
       if (result.size() <= 0)
         return;
@@ -155,6 +152,10 @@ namespace GGS {
 
     void ArgumentParser::preparseCommandAndPutToResult(QString &name, QStringList commandArguments, QHash<QString, QStringList> &result)
     {
+      // INFO QGNA-1001 Всегда эмитим комманду quit.
+      if (name == "quit")
+        emit this->commandRecieved("quit", commandArguments);
+
       if (name == "uri") {
         this->uriParse(commandArguments, result);
       } else if (name.startsWith("uri:") && name.length() > 4) {
