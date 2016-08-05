@@ -28,6 +28,7 @@ namespace GGS {
       void parse(QStringList arguments);
       void clear();
 
+      QStringList cachedCommands();
       bool contains(const QString& name);
       QStringList commandArguments(const QString& name);
 

@@ -86,6 +86,12 @@ namespace GGS {
        this->_commandCache.clear();
     }
 
+    QStringList ArgumentParser::cachedCommands()
+    {
+      QMutexLocker locker(&this->_mutex);
+      return this->_commandCache.keys();
+    }
+
     bool ArgumentParser::tryGetCommandName(const QString& argument, QString& commandName)
     {
       QString tmp = argument.trimmed();
