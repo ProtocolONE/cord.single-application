@@ -1,29 +1,29 @@
-/****************************************************************************
-** This file is a part of Syncopate Limited GameNet Application or it parts.
-**
-** Copyright (©) 2011 - 2012, Syncopate Limited and/or affiliates. 
-** All rights reserved.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-****************************************************************************/
-
 #include <Application/ArgumentParser.h>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QUrl>
 
-namespace GGS {
+namespace P1 {
   namespace Application {
 
     ArgumentParser::ArgumentParser(QObject *parent)
       : QObject(parent)
       , _isInitFinished(false)
-      , _uriPrefix("gamenet")
+      , _uriPrefix("pone")
     {
     }
 
     ArgumentParser::~ArgumentParser()
     {
+    }
+
+    const QString& ArgumentParser::uriPrefix() const
+    {
+      return this->_uriPrefix;
+    }
+
+    void ArgumentParser::setUriPrefix(const QString& value)
+    {
+      this->_uriPrefix = value;
     }
 
     void ArgumentParser::parse(QStringList arguments)
@@ -147,7 +147,7 @@ namespace GGS {
       
       uriArg = commandArguments.at(0);
       QUrl url(uriArg);
-      if (url.scheme() != this->_uriPrefix)
+      if (url.scheme() != this->uriPrefix())
         return;
 
       QString commandName = url.host();

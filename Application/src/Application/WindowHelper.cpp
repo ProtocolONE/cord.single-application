@@ -1,6 +1,6 @@
 #include <Application/WindowHelper.h>
 
-namespace GGS {
+namespace P1 {
   namespace Application {
 
     WindowHelper::WindowHelper()

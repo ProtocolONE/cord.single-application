@@ -1,17 +1,4 @@
-/****************************************************************************
-** This file is a part of Syncopate Limited GameNet Application or it parts.
-**
-** Copyright (©) 2011 - 2012, Syncopate Limited and/or affiliates. 
-** All rights reserved.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-****************************************************************************/
-
-#ifndef _GGS_APPLICATION_SINGLEAPPLICATION_H_
-#define _GGS_APPLICATION_SINGLEAPPLICATION_H_
-
-#include <Application/Application_global.h>
+#pragma once
 #include <Application/ArgumentParser.h>
 
 #include <QtNetwork/QTcpServer>
@@ -21,12 +8,12 @@
 #include <Windows.h>
 
 
-namespace GGS {
+namespace P1 {
   namespace Application {
 
     class SingleApplicationEventFilter;
 
-    class APPLICATION_EXPORT SingleApplication : public QApplication
+    class SingleApplication : public QApplication
     {
       Q_OBJECT
     public:
@@ -74,4 +61,3 @@ namespace GGS {
     };
   }
 }
-#endif // _GGS_APPLICATION_SINGLEAPPLICATION_H_

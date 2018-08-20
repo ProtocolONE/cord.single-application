@@ -40,15 +40,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Application\Application_global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Application\WindowHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -95,9 +86,6 @@
     <CustomBuild Include="include\Application\SingleApplicationEventFilter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Application.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="i18n\Application_en.ts">

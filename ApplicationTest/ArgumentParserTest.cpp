@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include <QtTest/QSignalSpy>
 
-using namespace GGS::Application;
+using namespace P1::Application;
 
 class ArgumentParserTest : public ::testing::Test {
 public:
@@ -19,6 +19,7 @@ public:
   void SetUp()
   {
     parser.clear();
+    parser.setUriPrefix("pone");
   }
 
   ArgumentParser parser;
@@ -125,7 +126,7 @@ TEST_F(ArgumentParserTest, afterInitTest)
 TEST_F(ArgumentParserTest, uriArgsTest)
 {
   QStringList commandlist1;
-  commandlist1 << "/uri" << "gamenet://somecommand/args1/args2/";
+  commandlist1 << "/uri" << "pone://somecommand/args1/args2/";
 
   QHash<QString, QStringList> expected;
   QStringList expectedArgs;
@@ -156,7 +157,7 @@ TEST_F(ArgumentParserTest, uriArgsTest)
 TEST_F(ArgumentParserTest, uriArgsTest2)
 {
   QStringList commandlist1;
-  commandlist1 << "/uri:gamenet://somecommand/args1/args2/";
+  commandlist1 << "/uri:pone://somecommand/args1/args2/";
 
   QHash<QString, QStringList> expected;
   QStringList expectedArgs;

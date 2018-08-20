@@ -1,5 +1,4 @@
-#ifndef _GGS_APPLICATION_SINGLEAPPICATIONFIXTURE_H_
-#define _GGS_APPLICATION_SINGLEAPPICATIONFIXTURE_H_
+#pragma once
 
 #include <QtCore/QObject>
 #include <QtCore/QDebug>
@@ -13,5 +12,3 @@ public:
 public slots:
   void messageRecieved(QString message);
 };
-
-#endif // _GGS_APPLICATION_SINGLEAPPICATIONFIXTURE_H_

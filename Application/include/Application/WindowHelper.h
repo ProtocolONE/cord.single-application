@@ -1,7 +1,8 @@
+#pragma once
+
 #include <Windows.h>
 
-
-namespace GGS {
+namespace P1 {
   namespace Application {
 
     class WindowHelper
